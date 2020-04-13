@@ -2,6 +2,7 @@
 #define APP_H
 
 #include "app_state/appstate.h"
+#include "Socket.h"
 
 /**
  * @brief
@@ -27,6 +28,7 @@ private:
      * Zmienna podtrzymująca działanie pętli głównej programu.
      */
     bool is_running;
+    Socket socket;
     /**
      * Aktualny stan aplikacji.
      */

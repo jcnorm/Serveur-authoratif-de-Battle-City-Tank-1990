@@ -10,6 +10,7 @@
 */
 
 #include "app.h"
+#include "gamestate.h"
 
 int main( int argc, char* args[] )
 {

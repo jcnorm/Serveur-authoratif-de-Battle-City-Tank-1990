@@ -26,6 +26,8 @@ App::~App()
 
 void App::run()
 {
+    socket.Connect();
+
     is_running = true;
     //inicjalizacja SDL i utworzenie okan
 
@@ -76,7 +78,9 @@ void App::run()
             fps_time += dt; fps_count++;
             if(fps_time > 200)
             {
+                auto returnVal = socket.SendGameState(Gamestate());
                 FPS = (double)fps_count / fps_time * 1000;
+                std::cout << "FPS count: " << FPS << std::endl;
                 if(FPS > 60) delay++;
                 else if(delay > 0) delay--;
                 fps_time = 0; fps_count = 0;
@@ -85,7 +89,9 @@ void App::run()
 
         engine.destroyModules();
     }
-
+    printf("Closing socket\n");
+    socket.Close();
+    printf("Closing window\n");
     SDL_DestroyWindow(m_window);
     m_window = nullptr;
     TTF_Quit();
