@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include "Interval.h"
+#include "AppconfigValidator.h"
 
 namespace Validator {
 
@@ -20,7 +22,12 @@ namespace Validator {
 
     template<>
     void Validate<ValidationType::Appconfig>() {
-        
+        Interval test(1,3);
+        std::cout << test.IsValid(2) << std::endl;
+        std::cout << test.IsValid(1) << std::endl;
+        std::cout << test.IsValid(3) << std::endl;
+        std::cout << test.IsValid(4) << std::endl;
+        std::cout << "Validating Appconfig" << std::endl;
     }
 
     template<>
