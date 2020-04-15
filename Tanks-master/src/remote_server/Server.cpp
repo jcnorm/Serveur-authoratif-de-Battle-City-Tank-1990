@@ -72,6 +72,7 @@ int main() {
     
     socklen_t len = sizeof(cliaddr);
     int n;
+    Validator validator{};
 
     while(true){
         n = recvfrom(sockfd, (char *)buffer, MAXLINE,
@@ -79,7 +80,7 @@ int main() {
                     &len);
         std::cout << "Client : " << buffer << std::endl;
 
-        Validator::ValidateMessage(std::string(buffer));
+        validator.ValidateMessage(std::string(buffer));
 
         sendto(sockfd, buffer, n,
             MSG_CONFIRM, (const struct sockaddr *) &cliaddr,
