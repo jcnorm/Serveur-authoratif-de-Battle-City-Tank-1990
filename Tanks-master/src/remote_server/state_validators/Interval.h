@@ -6,11 +6,11 @@ class Interval{
     T min;
     T max;
 public:
-    Interval() = delete;
+    Interval() {};
     Interval(const T minMax) : min(minMax), max(minMax){}
     Interval(const T minVal, const T maxVal) : min(minVal), max(maxVal) {}
-    Interval(const Interval&) = delete;
-    Interval& operator=(const Interval&) = delete;
+    Interval(const Interval& interval) = delete;
+    Interval& operator=(const Interval& interval) = delete;
     ~Interval() = default;
 
     [[nodiscard]] const bool IsValid(T val) const{
@@ -21,8 +21,17 @@ public:
         return min;
     }
 
+    void SetValues(const T minVal, const T maxVal){
+        min = minVal;
+        max = maxVal;
+    }
+
     [[nodiscard]] const T GetMax() const{
-        return min;
+        return max;
+    }
+
+    [[nodiscard]] const T GetClosestValue(T val) const{
+        return (val > max) ? max : min;
     }
 };
 

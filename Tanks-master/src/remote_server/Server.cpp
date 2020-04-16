@@ -8,13 +8,14 @@
 #include <signal.h>
 #include <iostream>
 #include "Validator.h"
+#include <chrono>
 
 #define PORT     8080
 #define MAXLINE 4096
 
 int sockfd;
 
-// definition d'un type pour faciliter le traitement d'un signal
+//To simplify signal handling
 typedef void Sigfunc(int);
 Sigfunc *signal(int,Sigfunc *);
 
@@ -78,14 +79,20 @@ int main() {
         n = recvfrom(sockfd, (char *)buffer, MAXLINE,
                     MSG_WAITALL, ( struct sockaddr *) &cliaddr,
                     &len);
-        std::cout << "Client : " << buffer << std::endl;
 
-        validator.ValidateMessage(std::string(buffer));
+        // auto pre = std::chrono::high_resolution_clock::now();
 
-        sendto(sockfd, buffer, n,
+        auto newGamestate = validator.ValidateMessage(std::string(buffer));
+
+        // auto post = std::chrono::high_resolution_clock::now();
+        
+        // std::cout << "Time to validate: "
+        //     << std::chrono::duration_cast<std::chrono::microseconds>(post - pre).count()
+        //     << " us." << std::endl;
+
+        sendto(sockfd, newGamestate.c_str(), newGamestate.size(),
             MSG_CONFIRM, (const struct sockaddr *) &cliaddr,
                 len);
-        std::cout << "Buffer sent." << std::endl;
     }
 
     return 0;

@@ -22,17 +22,17 @@ std::string Validator::ValidateMessage(std::string message){
                 break;
 
             case Validator::ValidationType::Player:
+                correctedGamestate += std::to_string(type) + value_delimiter + player_V.CorrectState(values);
                 break;
 
             case Validator::ValidationType::Enemy:
+                correctedGamestate += std::to_string(type) + value_delimiter + enemy_V.CorrectState(values);
                 break;
         }
 
         if(index != sections.size() - 1)
             correctedGamestate += '|';
     }
-
-    std::cout << correctedGamestate << std::endl;
 
     return correctedGamestate;
 }
