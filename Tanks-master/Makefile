@@ -16,14 +16,14 @@ RESOURCES = $(APP_RESOURCES)
 SERVER_FILE_NAME = Server
 
 MODULES = engine app_state objects
-SERVER_MODULES = remote_server
+SERVER_MODULES = remote_server remote_server/state_validators
 SRC_DIRS = src $(addprefix src/,$(MODULES))
 SERVER_SRC_DIRS = $(addprefix src/,$(SERVER_MODULES))
 BUILD_DIRS = $(BUILD) $(BIN) $(addprefix $(BUILD)/,$(MODULES))
 SERVER_BUILD_DIRS = $(BUILD) $(BIN) $(addprefix $(BUILD)/,$(SERVER_MODULES))
 
 SOURCES = $(foreach sdir,$(SRC_DIRS),$(wildcard $(sdir)/*.cpp))
-SERVER_SOURCES = $(foreach sdir,$(SERVER_SRC_DIRS),$(filter-out src/$(SERVER_MODULES)/$(SERVER_FILE_NAME).cpp, $(wildcard $(sdir)/*.cpp)))
+SERVER_SOURCES = $(foreach sdir,$(SERVER_SRC_DIRS),$(filter-out src/remote_server/$(SERVER_FILE_NAME).cpp, $(wildcard $(sdir)/*.cpp)))
 SERVER_EXEC_SOURCES = $(foreach sdir,$(SERVER_SRC_DIRS),$(wildcard $(sdir)/$(SERVER_FILE_NAME).cpp))
 OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SOURCES))
 SERVER_OBJS = $(patsubst src/%.cpp,$(BUILD)/%.o,$(SERVER_SOURCES))
