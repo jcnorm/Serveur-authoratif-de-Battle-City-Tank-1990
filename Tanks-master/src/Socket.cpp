@@ -44,7 +44,7 @@ void Socket::Connect()
 
     memset(buffer, 0, sizeof(buffer));
 
-    //std::cout << "Gamestate sent: " << message << std::endl;
+    std::cout << "Gamestate sent: " << message << std::endl;
 
     sendto(sock, (const char *)message.c_str(), message.size(), 
         MSG_CONFIRM, (const struct sockaddr *) &serv_addr,  
@@ -58,7 +58,7 @@ void Socket::Connect()
     if(errno == EAGAIN || errno == EWOULDBLOCK)
         missedLastResponse = true;
 
-    //std::cout << "Buffer received: " << std::string(buffer) << std::endl;
+    std::cout << "Buffer received: " << std::string(buffer) << std::endl;
     
     return Gamestate(std::string(buffer));
 }  

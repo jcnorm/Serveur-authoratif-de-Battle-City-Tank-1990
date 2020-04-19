@@ -8,7 +8,7 @@
 #include <signal.h>
 #include <iostream>
 #include "Validator.h"
-#include <chrono>
+//#include <chrono>
 
 #define PORT     8080
 #define MAXLINE 4096
@@ -80,7 +80,7 @@ int main() {
                     MSG_WAITALL, ( struct sockaddr *) &cliaddr,
                     &len);
 
-        // auto pre = std::chrono::high_resolution_clock::now();
+        //auto pre = std::chrono::high_resolution_clock::now();
 
         auto newGamestate = validator.ValidateMessage(std::string(buffer));
 
