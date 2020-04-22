@@ -5,10 +5,10 @@ https://github.com/krystiankaluzny/Tanks
 Le but de ce projet se divise en deux. Tout d’abord, ajouter des fonctions de triches pour briser le fonctionnement normal du jeu pendant son exécution. Puis, bâtir un serveur authoratif pour recevoir l’état de jeu et le renvoyer au client dans un état valide au besoin pour pouvoir rétablir le fonctionnement normal du jeu. Le tout doit se faire sans considérablement affecter les FPS ou tout autre métrique de performances du jeu. La partie serveur ne fonctionne qu’en Linux, ce qui contraint le jeu à ce système contrairement au projet original.
 
 ## Fonction de triches
-Touche F5 : Incrémente la vitesse de déplacement du Tank joueur.
-Touche F6 : Incrémente la quantité de balles pouvant exister pour le Tank joueur.
-Touche F7 : Abrège le délai de tir avant de pouvoir tirer la prochaine balle.
-Touche F8 : Instable! Peut causer des segfaults si il y a tirs en succession. Augmente la vitesse des balles tirées.
+- Touche F5 : Incrémente la vitesse de déplacement du Tank joueur.
+- Touche F6 : Incrémente la quantité de balles pouvant exister pour le Tank joueur.
+- Touche F7 : Abrège le délai de tir avant de pouvoir tirer la prochaine balle.
+- Touche F8 : Instable! Peut causer des segfaults si il y a tirs en succession. Augmente la vitesse des balles tirées.
 
 
 ## Build
