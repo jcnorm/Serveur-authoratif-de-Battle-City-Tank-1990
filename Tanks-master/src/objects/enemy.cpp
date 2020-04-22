@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ctime>
 #include <iostream>
+#include "../Split.h"
 
 Enemy::Enemy()
     : Tank(AppConfig::enemy_starting_point.at(0).x, AppConfig::enemy_starting_point.at(0).y, ST_TANK_A)
@@ -183,4 +184,45 @@ unsigned Enemy::scoreForHit()
 {
     if(lives_count > 0) return 50;
     return 100;
+}
+
+std::string Enemy::State_To_String(){
+    const char delimiter = '/';
+
+    return std::string("3") + delimiter + std::to_string(static_cast<int>(pos_x)) +
+    delimiter + std::to_string(static_cast<int>(pos_y)) +
+    delimiter + std::to_string(default_speed) +
+    delimiter + std::to_string(speed) +
+    delimiter + std::to_string(static_cast<int>(bullets.size())) +
+    delimiter + std::to_string(lives_count) +
+    delimiter + std::to_string(m_bullet_max_size) +
+    delimiter + std::to_string(m_shield_time) +
+    delimiter + std::to_string(m_frozen_time) +
+    delimiter + std::to_string(m_reload_time) +
+    delimiter + std::to_string(m_fire_time) +
+    delimiter + std::to_string(static_cast<int>(type));
+}
+
+void Enemy::Apply_State(std::string state){
+    auto new_values = Split::split(state,'/');
+
+    if(new_values.size() != 13)
+        return;
+
+    pos_x = std::stod(new_values[1]);
+    pos_x = std::stod(new_values[2]);
+    default_speed = std::stod(new_values[3]);
+    speed = std::stod(new_values[4]);
+    int bullet_size = std::stoi(new_values[5]);
+
+    if(bullet_size < static_cast<int>(bullets.size()))
+        while(static_cast<int>(bullets.size()) - bullet_size > 0)
+            bullets.pop_back();
+
+    lives_count = std::stoi(new_values[6]);
+    m_bullet_max_size = std::stoi(new_values[7]);
+    m_shield_time = std::stoi(new_values[8]);
+    m_frozen_time = std::stoi(new_values[9]);
+    m_reload_time = std::stoi(new_values[10]);
+    m_fire_time = std::stoi(new_values[11]);
 }

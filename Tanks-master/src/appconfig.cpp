@@ -1,4 +1,5 @@
 #include "appconfig.h"
+#include "Split.h"
 
 string AppConfig::texture_path = "texture.png";
 string AppConfig::levels_path = "levels/";
@@ -57,3 +58,35 @@ double AppConfig::game_over_entry_speed = 0.13;
 double AppConfig::tank_default_speed = 0.08;
 double AppConfig::bullet_default_speed = 0.23;
 bool AppConfig::show_enemy_target = false;
+
+std::string AppConfig::State_To_String(){
+
+    const char delimiter = '/';
+
+    return std::string("0") + delimiter + std::to_string(AppConfig::enemy_start_count) +
+    delimiter + std::to_string(AppConfig::player_bullet_max_size) + 
+    delimiter + std::to_string(AppConfig::tank_shield_time) +
+    delimiter + std::to_string(AppConfig::tank_frozen_time) +
+    delimiter + std::to_string(AppConfig::protect_eagle_time) +
+    delimiter + std::to_string(AppConfig::player_reload_time) +
+    delimiter + std::to_string(AppConfig::enemy_max_count_on_map) +
+    delimiter + std::to_string(AppConfig::tank_default_speed) +
+    delimiter + std::to_string(AppConfig::bullet_default_speed);
+}
+
+void AppConfig::Apply_State(std::string state){
+    auto new_values = Split::split(state,'/');
+
+    if(new_values.size() != 9)
+        return;
+
+    AppConfig::enemy_start_count = std::stoi(new_values[0]);
+    AppConfig::player_bullet_max_size = std::stoi(new_values[1]);
+    AppConfig::tank_shield_time = std::stoi(new_values[2]);
+    AppConfig::tank_frozen_time = std::stoi(new_values[3]);
+    AppConfig::protect_eagle_time = std::stoi(new_values[4]);
+    AppConfig::player_reload_time = std::stoi(new_values[5]);
+    AppConfig::enemy_max_count_on_map = std::stoi(new_values[6]);
+    AppConfig::tank_default_speed = std::stod(new_values[7]);
+    AppConfig::bullet_default_speed = std::stod(new_values[8]);
+}

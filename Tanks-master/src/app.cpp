@@ -79,9 +79,10 @@ void App::run()
             fps_time += dt; fps_count++;
             if(fps_time > 200)
             {
-                auto returnVal = socket.SendGameState(Gamestate());
+                auto server_response = socket.VerifyGameState(Gamestate::To_String(m_app_state));
+                Gamestate::Apply_State(server_response, m_app_state);
                 FPS = (double)fps_count / fps_time * 1000;
-                //std::cout << "FPS count: " << FPS << std::endl;
+                std::cout << "FPS count: " << FPS << std::endl;
                 if(FPS > 60) delay++;
                 else if(delay > 0) delay--;
                 fps_time = 0; fps_count = 0;

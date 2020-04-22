@@ -69,6 +69,10 @@ public:
      */
     AppState* nextState();
 
+    std::string State_To_String() override;
+
+    void Apply_State(std::vector<std::string> sections) override;
+
 private:
     /**
      * Wczytanie mapy poziomu z pliku

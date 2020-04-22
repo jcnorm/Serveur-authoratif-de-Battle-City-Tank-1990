@@ -30,8 +30,7 @@ void Socket::Connect()
     fds[0].events = POLLIN;
 } 
 
-[[nodiscard]] Gamestate Socket::SendGameState(Gamestate state){
-    auto message = state.ToString();
+std::string Socket::VerifyGameState(std::string message){
 
     //If last call timed out and received the message in the meantime
     if (missedLastResponse){
@@ -44,13 +43,13 @@ void Socket::Connect()
 
     memset(buffer, 0, sizeof(buffer));
 
-    //std::cout << "Gamestate sent: " << message << std::endl;
+    std::cout << "Gamestate sent: " << message << std::endl;
 
     sendto(sock, (const char *)message.c_str(), message.size(), 
         MSG_CONFIRM, (const struct sockaddr *) &serv_addr,  
             sizeof(serv_addr)); 
 
-    int n = recvfrom(sock, (char *)buffer, MAXLINE,  
+    recvfrom(sock, (char *)buffer, MAXLINE,  
             MSG_WAITALL, ( struct sockaddr *) &serv_addr, 
             (socklen_t*)sizeof(serv_addr)); 
 
@@ -58,9 +57,8 @@ void Socket::Connect()
     if(errno == EAGAIN || errno == EWOULDBLOCK)
         missedLastResponse = true;
 
-    //std::cout << "Buffer received: " << std::string(buffer) << std::endl;
-    
-    return Gamestate(std::string(buffer));
+    std::cout << "Buffer received: " << std::string(buffer) << std::endl;
+    return std::string(buffer);
 }  
 
 void Socket::Close(){

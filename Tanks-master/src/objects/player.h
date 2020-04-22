@@ -97,6 +97,10 @@ public:
      */
     unsigned score;
 
+    std::string State_To_String();
+
+    void Apply_State(std::string state);
+
 private:
     /**
      * Aktualnie posiadana liczba gwiazdek; może się zawierać w przedziale [0, 3].

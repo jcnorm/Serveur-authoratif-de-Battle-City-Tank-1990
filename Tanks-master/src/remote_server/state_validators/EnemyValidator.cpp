@@ -8,9 +8,9 @@ std::string EnemyValidator::CorrectState(std::vector<std::string> &values) const
 
     auto val0 = std::stoi(values[0]);
     auto val1 = std::stoi(values[1]);
-    auto val2 = std::stoi(values[2]);
+    auto val2 = std::stod(values[2]);
     auto val3 = std::stod(values[3]);
-    auto val4 = std::stod(values[4]);
+    auto val4 = std::stoi(values[4]);
     auto val5 = std::stoi(values[5]);
     auto val6 = std::stoi(values[6]);
     auto val7 = std::stoi(values[7]);

@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL_events.h>
 #include <string>
+#include <vector>
 
 /**
  * @brief
@@ -37,5 +38,9 @@ public:
      * @return następny stan gry
      */
     virtual AppState* nextState() = 0;
+
+    virtual std::string State_To_String(){ return  ""; };
+
+    virtual void Apply_State(std::vector<std::string> sections){};
 };
 #endif // APPSTATE_H

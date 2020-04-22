@@ -3,6 +3,7 @@
 #include "../appconfig.h"
 #include "menu.h"
 #include "scores.h"
+#include "../Split.h"
 
 #include <SDL2/SDL.h>
 #include <stdlib.h>
@@ -936,4 +937,51 @@ void Game::generateBonus()
     }while(intersect_rect.w > 0 && intersect_rect.h > 0);
 
     m_bonuses.push_back(b);
+}
+
+std::string Game::State_To_String(){
+
+    const char value_delimiter = '/';
+    const char section_delimiter = '|';
+
+    std::string state = std::string("1") + value_delimiter + std::to_string(m_current_level) +
+    value_delimiter + std::to_string(m_player_count) +
+    value_delimiter + std::to_string(m_enemy_to_kill) +
+    value_delimiter + std::to_string(m_enemy_redy_time);
+
+    for(auto player: m_players)
+        state += section_delimiter + player->State_To_String();
+
+    for(auto enemy: m_enemies)
+        state += section_delimiter + enemy->State_To_String();
+
+    return state;
+}
+
+void Game::Apply_State(std::vector<std::string> sections){
+    auto new_values = Split::split(sections[0],'/');
+
+    if(new_values.size() != 5)
+        return;
+
+    m_current_level = std::stoi(new_values[1]);
+    m_player_count = std::stoi(new_values[2]);
+    m_enemy_to_kill = std::stoi(new_values[3]);
+    m_enemy_redy_time = std::stoi(new_values[4]);
+
+    m_players[0]->Apply_State(sections[1]);
+
+    int i = 2;
+
+    if(sections.size() > 2)
+        if(sections[2][0] == '2' && m_players.size() == 2){
+            m_players[0]->Apply_State(sections[2]);
+            i++;
+        }
+
+    if(sections.size() >= 2 + i + m_enemies.size())
+        for(auto enemy: m_enemies){
+            enemy->Apply_State(sections[i]);
+            i++;
+        }
 }

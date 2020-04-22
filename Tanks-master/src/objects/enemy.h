@@ -46,6 +46,10 @@ public:
      */
     SDL_Point target_position;
 
+    std::string State_To_String();
+
+    void Apply_State(std::string state);
+
 private:
     /**
      * Czas od ostatniej zmiany kierunku.

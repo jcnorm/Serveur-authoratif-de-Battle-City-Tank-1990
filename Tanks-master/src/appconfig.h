@@ -5,6 +5,7 @@
 #include <iostream>
 #include <SDL2/SDL_rect.h>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -130,6 +131,10 @@ public:
      * Zmienna przechowuje informację o tym czy zostało włączone pokazywanie celów przeciwników.
      */
     static bool show_enemy_target;
+
+    static std::string State_To_String();
+
+    static void Apply_State(std::string state);
 };
 
 #endif // APPCONFIG_H

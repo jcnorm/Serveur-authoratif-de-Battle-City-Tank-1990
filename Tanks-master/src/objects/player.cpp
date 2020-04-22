@@ -4,6 +4,7 @@
 #include <iostream>
 #include "../cheat.h"
 #include <atomic>
+#include "../Split.h"
 
 Player::Player()
     : Tank(AppConfig::player_starting_point.at(0).x, AppConfig::player_starting_point.at(0).y, ST_PLAYER_1)
@@ -174,4 +175,44 @@ void Player::changeStarCountBy(int c)
 
     if(star_count > 0) default_speed = AppConfig::tank_default_speed * 1.3;
     else default_speed = AppConfig::tank_default_speed;
+}
+
+std::string Player::State_To_String(){
+    const char delimiter = '/';
+
+    return std::string("2") + delimiter + std::to_string(static_cast<int>(pos_x)) +
+    delimiter + std::to_string(static_cast<int>(pos_y)) +
+    delimiter + std::to_string(default_speed) +
+    delimiter + std::to_string(speed) +
+    delimiter + std::to_string(static_cast<int>(bullets.size())) +
+    delimiter + std::to_string(lives_count) +
+    delimiter + std::to_string(m_bullet_max_size) +
+    delimiter + std::to_string(m_shield_time) +
+    delimiter + std::to_string(m_frozen_time) +
+    delimiter + std::to_string(m_fire_time) +
+    delimiter + std::to_string(star_count);
+}
+
+void Player::Apply_State(std::string state){
+    auto new_values = Split::split(state,'/');
+
+    if(new_values.size() != 12)
+        return;
+
+    pos_x = std::stod(new_values[1]);
+    pos_y = std::stod(new_values[2]);
+    default_speed = std::stod(new_values[3]);
+    speed = std::stod(new_values[4]);
+    int bullet_size = std::stoi(new_values[5]);
+
+    if(bullet_size < static_cast<int>(bullets.size()))
+        while(static_cast<int>(bullets.size()) - bullet_size > 0)
+            bullets.pop_back();
+
+    lives_count = std::stoi(new_values[6]);
+    m_bullet_max_size = std::stoi(new_values[7]);
+    m_shield_time = std::stoi(new_values[8]);
+    m_frozen_time = std::stoi(new_values[9]);
+    m_fire_time = std::stoi(new_values[10]);
+    star_count = std::stoi(new_values[11]);
 }

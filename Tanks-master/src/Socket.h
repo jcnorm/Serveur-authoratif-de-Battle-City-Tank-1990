@@ -16,7 +16,7 @@ private:
     struct pollfd fds[1];
 public:
     void Connect();
-    [[nodiscard]] Gamestate SendGameState(Gamestate state);
+    std::string VerifyGameState(std::string message);
     void Close();
 };
 
