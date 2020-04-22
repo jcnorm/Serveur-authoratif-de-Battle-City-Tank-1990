@@ -36,8 +36,8 @@ vector<SDL_Point> AppConfig::enemy_starting_point =
 vector<Player::PlayerKeys> AppConfig::player_keys =
 []{
     vector<Player::PlayerKeys> v;
-    v.push_back({SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, P1_FIRE_KEY, SDL_SCANCODE_F5, SDL_SCANCODE_F6, SDL_SCANCODE_F7});
-    v.push_back({SDL_SCANCODE_W, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_D, P2_FIRE_KEY, SDL_SCANCODE_F5, SDL_SCANCODE_F6, SDL_SCANCODE_F7});
+    v.push_back({SDL_SCANCODE_UP, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT, P1_FIRE_KEY, SDL_SCANCODE_F5, SDL_SCANCODE_F6, SDL_SCANCODE_F7, SDL_SCANCODE_F8});
+    v.push_back({SDL_SCANCODE_W, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_D, P2_FIRE_KEY, SDL_SCANCODE_F5, SDL_SCANCODE_F6, SDL_SCANCODE_F7, SDL_SCANCODE_F8});
     return v;
 }();
 unsigned AppConfig::level_start_time = 2000;
@@ -77,16 +77,16 @@ std::string AppConfig::State_To_String(){
 void AppConfig::Apply_State(std::string state){
     auto new_values = Split::split(state,'/');
 
-    if(new_values.size() != 9)
+    if(new_values.size() != 10)
         return;
 
-    AppConfig::enemy_start_count = std::stoi(new_values[0]);
-    AppConfig::player_bullet_max_size = std::stoi(new_values[1]);
-    AppConfig::tank_shield_time = std::stoi(new_values[2]);
-    AppConfig::tank_frozen_time = std::stoi(new_values[3]);
-    AppConfig::protect_eagle_time = std::stoi(new_values[4]);
-    AppConfig::player_reload_time = std::stoi(new_values[5]);
-    AppConfig::enemy_max_count_on_map = std::stoi(new_values[6]);
-    AppConfig::tank_default_speed = std::stod(new_values[7]);
-    AppConfig::bullet_default_speed = std::stod(new_values[8]);
+    AppConfig::enemy_start_count = std::stoi(new_values[1]);
+    AppConfig::player_bullet_max_size = std::stoi(new_values[2]);
+    AppConfig::tank_shield_time = std::stoi(new_values[3]);
+    AppConfig::tank_frozen_time = std::stoi(new_values[4]);
+    AppConfig::protect_eagle_time = std::stoi(new_values[5]);
+    AppConfig::player_reload_time = std::stoi(new_values[6]);
+    AppConfig::enemy_max_count_on_map = std::stoi(new_values[7]);
+    AppConfig::tank_default_speed = std::stod(new_values[8]);
+    AppConfig::bullet_default_speed = std::stod(new_values[9]);
 }

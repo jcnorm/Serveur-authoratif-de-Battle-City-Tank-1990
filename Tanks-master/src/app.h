@@ -18,7 +18,7 @@ public:
      * Po poprawnej inicjalizacji następuje wejście w pętlę główną programu, która kolejno: reaguje na zdarzenie,
      * uaktualnia obecny stan aplikacji, rysuje obiety na ekranie.
      */
-    void run();
+    void run(bool verification);
     /**
      * Funkcja obsługująca zdarzenia czekające w kolejce.
      */

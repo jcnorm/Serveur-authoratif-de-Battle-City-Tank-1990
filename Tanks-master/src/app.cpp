@@ -25,7 +25,7 @@ App::~App()
         delete m_app_state;
 }
 
-void App::run()
+void App::run(bool verification)
 {
     socket.Connect();
 
@@ -79,8 +79,10 @@ void App::run()
             fps_time += dt; fps_count++;
             if(fps_time > 200)
             {
-                auto server_response = socket.VerifyGameState(Gamestate::To_String(m_app_state));
-                Gamestate::Apply_State(server_response, m_app_state);
+                if(verification){
+                    auto server_response = socket.VerifyGameState(Gamestate::To_String(m_app_state));
+                    Gamestate::Apply_State(server_response, m_app_state);
+                }
                 FPS = (double)fps_count / fps_time * 1000;
                 std::cout << "FPS count: " << FPS << std::endl;
                 if(FPS > 60) delay++;

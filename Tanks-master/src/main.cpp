@@ -10,12 +10,15 @@
 */
 
 #include "app.h"
-#include "gamestate.h"
 
 int main( int argc, char* args[] )
 {
+    bool server_verification = false;
+    if (argc > 1 && strcmp(args[1],"-valid")==0 )
+        server_verification = true;
+
     App app;
-    app.run();
+    app.run(server_verification);
 
     return 0;
 }

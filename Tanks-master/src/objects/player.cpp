@@ -69,7 +69,9 @@ void Player::update(Uint32 dt)
 
         if(key_state[player_keys.fire] && m_fire_time > AppConfig::player_reload_time)
         {
-            fire();
+            Bullet* bulletptr = fire();
+            if(Cheat::cheated_player_bullet_speed)
+                bulletptr->speed = Cheat::player_bullet_speed_override;
             m_fire_time = 0;
         }
 
@@ -86,12 +88,17 @@ void Player::update(Uint32 dt)
             printf("CHEAT: increased player ammo clip to %u \n",m_bullet_max_size);
         }
 
-        if(key_state[player_keys.cheat_player_shield] && Cheat::delay_since_cheat_used >= 500){
+        if(key_state[player_keys.cheat_player_reload] && Cheat::delay_since_cheat_used >= 500){
             Cheat::delay_since_cheat_used = 0;
-            setFlag(TSF_SHIELD);
-            m_shield_time = 3600*60;
-            printf("CHEAT: spawned infinite shield to player \n");
+            Cheat::shorten_reload_time();
+            printf("CHEAT: decreased reload time to %u ms \n", AppConfig::player_reload_time);
         }
+
+        //if(key_state[player_keys.cheat_player_bullet] && Cheat::delay_since_cheat_used >= 500){
+        //    Cheat::delay_since_cheat_used = 0;
+        //    Cheat::raise_bullet_speed();
+        //    printf("CHEAT: increased bullet speed to %f \n", Cheat::player_bullet_speed_override);
+        //}
     }
 
     m_fire_time += dt;

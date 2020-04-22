@@ -16,9 +16,9 @@ public:
     struct PlayerKeys
     {
         PlayerKeys(): up(SDL_SCANCODE_UNKNOWN), down(SDL_SCANCODE_UNKNOWN), left(SDL_SCANCODE_UNKNOWN), right(SDL_SCANCODE_UNKNOWN), fire(SDL_SCANCODE_UNKNOWN),
-            cheat_player_speed(SDL_SCANCODE_UNKNOWN), cheat_player_ammo(SDL_SCANCODE_UNKNOWN), cheat_player_shield(SDL_SCANCODE_UNKNOWN){}
-        PlayerKeys(SDL_Scancode u, SDL_Scancode d, SDL_Scancode l, SDL_Scancode r, SDL_Scancode f, SDL_Scancode f5, SDL_Scancode f6, SDL_Scancode f7): up(u), down(d), left(l), right(r), fire(f), 
-            cheat_player_speed(f5), cheat_player_ammo(f6), cheat_player_shield(f7) {}
+            cheat_player_speed(SDL_SCANCODE_UNKNOWN), cheat_player_ammo(SDL_SCANCODE_UNKNOWN), cheat_player_reload(SDL_SCANCODE_UNKNOWN), cheat_player_bullet(SDL_SCANCODE_UNKNOWN){}
+        PlayerKeys(SDL_Scancode u, SDL_Scancode d, SDL_Scancode l, SDL_Scancode r, SDL_Scancode f, SDL_Scancode f5, SDL_Scancode f6, SDL_Scancode f7, SDL_Scancode f8): up(u), down(d), left(l), right(r), fire(f), 
+            cheat_player_speed(f5), cheat_player_ammo(f6), cheat_player_reload(f7), cheat_player_bullet(f8) {}
         /**
          * Klawisz odpowiadający jeździe w górę.
          */
@@ -44,7 +44,9 @@ public:
 
         SDL_Scancode cheat_player_ammo;
 
-        SDL_Scancode cheat_player_shield;
+        SDL_Scancode cheat_player_reload;
+
+        SDL_Scancode cheat_player_bullet;
     };
 
     /**
